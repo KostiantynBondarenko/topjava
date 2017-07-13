@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class MealsUtil {
     public static void main(String[] args) {
-        List<Meal> mealList = Arrays.asList(
+        List<Meal> meals = Arrays.asList(
                 new Meal(LocalDateTime.of(2017, Month.JULY, 30,10,0), "Завтрак", 500),
                 new Meal(LocalDateTime.of(2017, Month.JULY, 30,13,0), "Обед", 1000),
                 new Meal(LocalDateTime.of(2017, Month.JULY, 30,20,0), "Ужин", 500),
@@ -23,7 +23,7 @@ public class MealsUtil {
                 new Meal(LocalDateTime.of(2017, Month.JULY, 31,20,0), "Ужин", 510)
         );
 
-            getFilteredWithExceeded(mealList, LocalTime.of(7, 0), LocalTime.of(12,0), 2000).forEach(System.out::println);
+            getFilteredWithExceeded(meals, LocalTime.of(7, 0), LocalTime.of(12,0), 2000).forEach(System.out::println);
     }
 
     public static List<MealWithExceed>  getFilteredWithExceeded(List<Meal> mealList, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
