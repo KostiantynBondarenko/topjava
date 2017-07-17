@@ -23,7 +23,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>mealServlet</servlet-name>
-        <url-pattern>/meals</url-pattern> <!--The address to which we maping the servlet-->
+        <url-pattern>/meals</url-pattern>
     </servlet-mapping>
 
 </web-app>
