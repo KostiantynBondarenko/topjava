@@ -14,13 +14,14 @@
 
         <label for="datetime-local">Date-time:</label>
         <input type="datetime-local" id="datetime-local" value="${meal.dateTime}" name="date"/>
+        <%--<input type="datetime" id="datetime-local" value="${f:formatLocalDateTime(meal.dateTime,'yyyy-MM-dd HH:mm')}" name="date"/>--%>
         <%--<input type="datetime-local" id="datetime-local" value="${f:formatLocalDateTime(meal.dateTime,'yyyy-MM-dd HH:mm')}" name="date"/>--%>
         <br/><br/>
         <label for="Description">Description:</label>
-        <input type="text"  placeholder="Описание" value="${meal.description}" name="имя" id="Description" maxlength="25" name="description"/>
+        <input type="text"  placeholder="Описание" value="${meal.description}" id="Description" maxlength="25" name="description"/>
         <br/><br/>
         <label for="Сalories">Сalories:</label>
-        <input type="number" value="${meal.calories}" name="имя" id="Сalories" name="calories"/>
+        <input type="number" value="${meal.calories}" id="Сalories" name="calories"/>
         <br/><br/>
         <a href="meals"><input type="button" value="Отмена"/></a>
         <input type="submit" value="Сохранить">

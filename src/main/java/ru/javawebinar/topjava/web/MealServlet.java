@@ -47,7 +47,9 @@ public class MealServlet extends HttpServlet {
             request.setAttribute("mealsWithExceed", mealsWithExceed);
             request.getRequestDispatcher("/meals.jsp").forward(request, response);
         } else if (action.equals("create")) {
-            Meal meal = new Meal(LocalDateTime.now(), "", 0);
+            LocalDateTime localDateTime = LocalDateTime.now();
+            LocalDateTime localDateTimeWithoutSecond = LocalDateTime.of(localDateTime.toLocalDate(), LocalTime.of(localDateTime.getHour(), localDateTime.getMinute()));
+            Meal meal = new Meal(localDateTimeWithoutSecond, "", 0);
             request.setAttribute("meal", meal);
             request.getRequestDispatcher("/mealEdit.jsp").forward(request, response);
         } else if (action.equals("edit")) {
