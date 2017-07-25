@@ -1,34 +1,41 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="http://topjava.ru/functions" prefix="f" %>
+<%@ taglib prefix="fn" uri="http://topjava/functions" %>
 <html>
 <head>
-    <title>Meals</title>
+    <title>Meal list</title>
+    <style>
+        .normal {
+            color: green;
+        }
+        .exceeded {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <h3><a href="index.html">Home</a></h3>
-    <a href="meals?action=create">create new</a>
-
-    <table border="1" cellpadding="7" cellspacing="0">
-        <caption><h2>Meals</h2></caption>
-        <tr>
-            <th>Date and Time</th>
-            <th>Description</th>
-            <th>Calories</th>
-            <th></th>
-            <th></th>
-        </tr>
-
-        <c:set var="meals" value="${requestScope.mealsWithExceed}" />
-
-        <c:forEach items="${meals}" var="MealWithExceed">
-            <jsp:useBean id="MealWithExceed" type="ru.javawebinar.topjava.model.MealWithExceed"/>
-            <tr style="color:${MealWithExceed.exceed ? 'red' : 'green'}">
-                <td>${f:formatLocalDateTime(MealWithExceed.dateTime,"yyyy-MM-dd HH:mm")}</td>
-                <td><c:out value="${MealWithExceed.description}"/></td>
-                <td><c:out value="${MealWithExceed.calories}"/></td>
-                <td><a href="meals?action=edit&id=${MealWithExceed.id}">edit</a> </td>
-                <td><a href="meals?action=delete&id=${MealWithExceed.id}">delete</a> </td>
+    <h2>Meal list</h2>
+    <a href="meals?action=create">Add Meal</a>
+    <hr/>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Calories</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <c:forEach items="${meals}" var="meal">
+            <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.model.MealWithExceed"/>
+            <tr class="${meal.exceed ? 'exceeded' : 'normal'}">
+                <td>${fn:formatDateTime(meal.dateTime)}</td>
+                <td><c:out value="${meal.description}"/></td>
+                <td><c:out value="${meal.calories}"/></td>
+                <td><a href="meals?action=update&id=${meal.id}">Update</a> </td>
+                <td><a href="meals?action=delete&id=${meal.id}">Delete</a> </td>
             </tr>
         </c:forEach>
     </table>

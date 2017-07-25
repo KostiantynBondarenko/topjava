@@ -3,7 +3,7 @@ package ru.javawebinar.topjava.repository;
 
 import ru.javawebinar.topjava.model.Meal;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface MealRepository {
     Meal save(Meal meal);
@@ -12,5 +12,5 @@ public interface MealRepository {
 
     Meal get(int id);
 
-    List<Meal> getAll();
+    Collection<Meal> getAll();
 }
