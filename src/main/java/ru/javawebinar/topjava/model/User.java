@@ -23,8 +23,8 @@ public class User extends NamedEntity {
     public User() {
     }
 
-    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
-        this(id, name, email, password, DEFAULT_CALORIES_PER_DAY, true, EnumSet.of(role, roles));
+    public User(String name, String email, String password, Role role, Role... roles) {
+        this(null, name, email, password, DEFAULT_CALORIES_PER_DAY, true, EnumSet.of(role, roles));
     }
 
     public User(Integer id, String name, String email, String password, int caloriesPerDay, boolean enabled, Set<Role> roles) {
@@ -80,15 +80,9 @@ public class User extends NamedEntity {
         return roles;
     }
 
-    @Override
+        @Override
     public String toString() {
-        return "User (" +
-                "id=" + id +
-                ", email=" + email +
-                ", name=" + name +
-                ", enabled=" + enabled +
-                ", roles=" + roles +
-                ", caloriesPerDay=" + caloriesPerDay +
-                ')';
+        return String.format("User (getID=%s, name=%s, email='%s', caloriesPerDay=%s, enabled=%s, roles=%s)",
+                id, name, email, caloriesPerDay, enabled, roles);
     }
 }

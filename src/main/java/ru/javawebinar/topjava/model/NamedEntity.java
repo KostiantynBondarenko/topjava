@@ -22,6 +22,7 @@ public class NamedEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return String.format("Entity %s (%s, '%s')", getClass().getName(), id, name);
+        return String.format("Entity %s (%s, '%s')",
+                getClass().getName(), id, name);
     }
 }

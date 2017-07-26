@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.model;
+package ru.javawebinar.topjava.to;
 
 import java.time.LocalDateTime;
 
@@ -43,12 +43,7 @@ public class MealWithExceed {
 
     @Override
     public String toString() {
-        return "MealWithExceed{" +
-                "id=" + id +
-                ", dateTime=" + dateTime +
-                ", description='" + description + '\'' +
-                ", calories=" + calories +
-                ", exceed=" + exceed +
-                '}';
+        return String.format("MealWithExceed (getID=%s, dateTime=%s, description='%s', calories=%s, exceed=%s)",
+                id, dateTime, description, calories, exceed);
     }
 }

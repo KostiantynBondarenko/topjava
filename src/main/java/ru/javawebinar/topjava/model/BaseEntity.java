@@ -24,6 +24,7 @@ public class BaseEntity {
 
     @Override
     public String toString() {
-        return String.format("Entity %s (%s)", getClass().getName(), getId());
+        return String.format("Entity %s (%s)",
+                getClass().getName(), getId());
     }
 }

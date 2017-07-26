@@ -17,16 +17,6 @@ public abstract class AbstractUserController {
     @Autowired
     private UserService service;
 
-    public List<User> getAll() {
-        log.info("getAll");
-        return service.getAll();
-    }
-
-    public User get(int id) {
-        log.info("get {}", id);
-        return service.get(id);
-    }
-
     public User create(User user) {
         log.info("create {}", user);
         checkNew(user);
@@ -38,14 +28,24 @@ public abstract class AbstractUserController {
         service.delete(id);
     }
 
-    public void update(User user, int id) {
-        log.info("update {} with id={}", user, id);
-        checkIdConsistent(user, id);
-        service.update(user);
+    public User get(int id) {
+        log.info("get {}", id);
+        return service.get(id);
     }
 
     public User getByMail(String email) {
         log.info("getByEmail {}", email);
         return service.getByEmail(email);
+    }
+
+    public void update(User user, int id) {
+        log.info("update {} with getID={}", user, id);
+        checkIdConsistent(user, id);
+        service.update(user);
+    }
+
+    public List<User> getAll() {
+        log.info("getAll");
+        return service.getAll();
     }
 }
