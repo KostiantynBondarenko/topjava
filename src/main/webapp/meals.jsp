@@ -1,51 +1,30 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://topjava/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
     <title>Meal list</title>
-    <style>
-        dl {
-            background: none repeat scroll 0 0 #FAFAFA;
-            margin: 8px 0;
-            padding: 0;
-        }
-        dt {
-            display: inline-block;
-            width: 170px;
-        }
-        dd {
-            display: inline-block;
-            margin-left: 8px;
-            vertical-align: top;
-        }
-        .normal {
-            color: green;
-        }
-        .exceeded {
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <h3><a href="index.html">Home</a></h3>
-    <h2>Meal list</h2>
+    <h2>Meals</h2>
     <form method="post" action="meals?action=filter">
         <dl>
             <dt>From Date:</dt>
-            <dd><input type="date" id="startDate" name="startDate" value="${startDate}"></dd>
+            <dd><input type="date" id="startDate" name="startDate" value="${param.startDate}"></dd>
         </dl>
         <dl>
             <dt>To Date:</dt>
-            <dd><input type="date" id="endDate" name="endDate" value="${endDate}"></dd>
+            <dd><input type="date" id="endDate" name="endDate" value="${param.endDate}"></dd>
         </dl>
         <dl>
             <dt>From Time:</dt>
-            <dd><input type="time" id="startTime" name="startTime" value="${startTime}"></dd>
+            <dd><input type="time" id="startTime" name="startTime" value="${param.startTime}"></dd>
         </dl>
         <dl>
             <dt>To Time:</dt>
-            <dd><input type="time" id="endTime" name="endTime" value="${endTime}"></dd>
+            <dd><input type="time" id="endTime" name="endTime" value="${param.endTime}"></dd>
         </dl>
         <button type="submit">Filter</button>
         <button type="button" onclick="myFunction()">Reset</button>
@@ -59,16 +38,15 @@
                 <th>Date</th>
                 <th>Description</th>
                 <th>Calories</th>
-                <th></th>
-                <th></th>
+                <th colspan="2">Action</th>
             </tr>
         </thead>
         <c:forEach items="${meals}" var="meal">
             <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.to.MealWithExceed"/>
             <tr class="${meal.exceed ? 'exceeded' : 'normal'}">
-                <td>${fn:formatDateTime(meal.dateTime)}</td>
-                <td><c:out value="${meal.description}"/></td>
-                <td><c:out value="${meal.calories}"/></td>
+                <td>${fn:replace(meal.dateTime, 'T', ' ')}</td>
+                <td>${meal.description}</td>
+                <td>${meal.calories}</td>
                 <td><a href="meals?action=update&id=${meal.id}">Update</a> </td>
                 <td><a href="meals?action=delete&id=${meal.id}">Delete</a> </td>
             </tr>

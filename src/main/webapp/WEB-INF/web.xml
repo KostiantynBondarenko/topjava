@@ -13,7 +13,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>userServlet</servlet-name>
-        <url-pattern>/users</url-pattern> <!--The address to which we mapping the servlet-->
+        <url-pattern>/users</url-pattern>
     </servlet-mapping>
 
     <servlet>

@@ -14,38 +14,47 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import static ru.javawebinar.topjava.util.ValidationUtil.checkIdConsistent;
+import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
+
 @Controller
 public class MealRestController {
     private static final Logger log = LoggerFactory.getLogger(MealRestController.class);
 
+    private final MealService service;
+
     @Autowired
-    private MealService service;
+    public MealRestController(MealService service) {
+        this.service = service;
+    }
 
     public Meal create(Meal meal) {
-        meal.setId(null);
         int userId = AuthorizedUser.getID();
-        log.info("create {} for User {}", meal, userId);
+        log.info("create {} for userId {}", meal, userId);
+        checkNew(meal);
         return service.save(meal, userId);
     }
 
     public void delete(int id) {
         int userId = AuthorizedUser.getID();
-        log.info("delete meal {} for User {}", id, userId);
+        log.info("delete meal {} for userId {}", id, userId);
         service.delete(id, userId);
     }
 
     public Meal get(int id) {
         int userId = AuthorizedUser.getID();
-        log.info("get meal {} for User {}", id, userId);
+        log.info("get meal {} for userId {}", id, userId);
         return service.get(id, userId);
     }
 
     public List<MealWithExceed> getBetween(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
         int userId = AuthorizedUser.getID();
-        log.info("getBetween dates {} - {} for time {} - {} for User {}", startDate, endDate, startTime, endTime, userId);
+        log.info("getBetween dates ({} - {}) time ({} - {}) for userId {}", startDate, endDate, startTime, endTime, userId);
 
         return MealsUtil.getFilteredWithExceeded(
-                service.getBetweenDates(startDate != null ? startDate : LocalDate.MIN, endDate != null ? endDate : LocalDate.MAX, userId),
+                service.getBetweenDates(
+                        startDate != null ? startDate : LocalDate.MIN,
+                        endDate != null ? endDate : LocalDate.MAX, userId),
                 startTime != null ? startTime : LocalTime.MIN,
                 endTime != null ? endTime : LocalTime.MAX,
                 AuthorizedUser.getCaloriesPerDay()
@@ -53,15 +62,15 @@ public class MealRestController {
     }
 
     public void update(Meal meal, int id) {
-        meal.setId(id);
         int userId = AuthorizedUser.getID();
-        log.info("update {} for User {}", meal, userId);
+        log.info("update {} with id={} for userId={}", meal, id, userId);
+        checkIdConsistent(meal, id);
         service.update(meal, userId);
     }
 
     public List<MealWithExceed> getAll() {
         int userId = AuthorizedUser.getID();
-        log.info("getAll for User {}", userId);
+        log.info("getAll for userId {}", userId);
         return MealsUtil.getWithExceeded(service.getAll(userId), AuthorizedUser.getCaloriesPerDay());
     }
 }

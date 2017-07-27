@@ -6,19 +6,13 @@
 <body>
     <h3>Проект <a href="https://github.com/KostiantynBondarenko/topjava010" target="_blank">Java Enterprise (Topjava)</a></h3>
     <hr>
-    <form action="meals?action=chooseRole" method="post">
-        <label> Choose role:
-            <select name="role">
-                <option selected="selected"></option>
-                <option>Admin</option>
-                <option>User</option>
-            </select>
-        </label>
-        <button type="submit">Ok</button>
+    <form action="users" method="post">
+        <b>Meals of&nbsp;</b>
+        <select name="userId">
+            <option value="1">Admin</option>
+            <option value="2">User</option>
+        </select>
+        <button type="submit">Select</button>
     </form>
-    <ul>
-        <li><a href="users">Users</a></li>
-        <li><a href="meals">Meals</a></li>
-    </ul>
 </body>
 </html>

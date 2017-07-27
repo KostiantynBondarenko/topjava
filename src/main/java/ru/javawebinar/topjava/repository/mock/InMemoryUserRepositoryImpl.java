@@ -1,7 +1,5 @@
 package ru.javawebinar.topjava.repository.mock;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
@@ -17,7 +15,10 @@ import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryUserRepositoryImpl implements UserRepository {
-    private static final Logger log = LoggerFactory.getLogger(InMemoryUserRepositoryImpl.class);
+
+    public static final int ADMIN_ID = 1;
+    public static final int USER_ID = 2;
+
     public static List<User> USER = Arrays.asList(
             new User("Admin", "ko6tia@gmail.com", "ko6tia", Role.ROLE_ADMIN),
             new User("User", "user@gmail.com", "user", Role.ROLE_USER)
@@ -31,7 +32,6 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-        log.info("save {}", user);
         if (user.isNew()) {
             user.setId(counter.incrementAndGet());
         }
@@ -41,19 +41,16 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean delete(int id) {
-        log.info("delete {}", id);
         return (repository.remove(id) != null);
     }
 
     @Override
     public User get(int id) {
-        log.info("get {}", id);
         return repository.get(id);
     }
 
     @Override
     public User getByEmail(String email) {
-        log.info("getByEmail {}", email);
         return repository.values().stream()
                 .filter(user -> email.equals(user.getEmail()))
                 .findFirst()
@@ -62,7 +59,6 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getAll() {
-        log.info("getAll");
         return repository.values().stream()
                 .sorted(Comparator.comparing(User::getName))
                 .collect(Collectors.toList());

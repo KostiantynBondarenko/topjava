@@ -6,7 +6,7 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Collection;
+import java.util.List;
 
 public interface MealService {
     Meal save(Meal meal, int userId);
@@ -15,13 +15,13 @@ public interface MealService {
 
     Meal get(int id, int userId) throws NotFoundException;
 
-    Collection<Meal> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId);
+    List<Meal> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId);
 
-    default Collection<Meal> getBetweenDates(LocalDate startDate, LocalDate endDate, int userId) {
+    default List<Meal> getBetweenDates(LocalDate startDate, LocalDate endDate, int userId) {
         return getBetweenDateTimes(LocalDateTime.of(startDate, LocalTime.MIN), LocalDateTime.of(endDate, LocalTime.MAX), userId);
     }
 
     Meal update(Meal meal, int userId) throws NotFoundException;
 
-    Collection<Meal> getAll(int userId);
+    List<Meal> getAll(int userId);
 }
