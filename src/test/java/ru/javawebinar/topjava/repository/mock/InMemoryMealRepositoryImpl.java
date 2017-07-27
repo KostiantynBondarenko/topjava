@@ -8,11 +8,17 @@ import ru.javawebinar.topjava.util.DateTimeUtil;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
+import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
 @Repository
 public class InMemoryMealRepositoryImpl implements MealRepository {
@@ -22,8 +28,9 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     private AtomicInteger counter = new AtomicInteger(0);
 
     public static List<Meal> MEALS_ADMIN = Arrays.asList(
-            new Meal(LocalDateTime.of(2017, Month.AUGUST, 28, 10, 0), "Завтрак", 500),
-            new Meal(LocalDateTime.of(2017, Month.AUGUST, 17, 18, 0), "Ужин", 1000)
+            new Meal(LocalDateTime.of(2017, Month.AUGUST, 17, 10, 0), "Завтрак", 500),
+            new Meal(LocalDateTime.of(2017, Month.AUGUST, 28, 13, 0), "Обед", 1000),
+            new Meal(LocalDateTime.of(2017, Month.AUGUST, 28, 18, 0), "Ужин", 1100)
     );
 
     public static List<Meal> MEALS_USER = Arrays.asList(
@@ -36,8 +43,8 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     );
 
     public InMemoryMealRepositoryImpl() {
-        MEALS_ADMIN.forEach(meal -> this.save(meal, InMemoryUserRepositoryImpl.ADMIN_ID));
-        MEALS_USER.forEach(meal -> this.save(meal, InMemoryUserRepositoryImpl.USER_ID));
+        MEALS_ADMIN.forEach(meal -> this.save(meal, ADMIN_ID));
+        MEALS_USER.forEach(meal -> this.save(meal, USER_ID));
     }
 
     @Override
