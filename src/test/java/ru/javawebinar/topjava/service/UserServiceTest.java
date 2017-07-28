@@ -14,7 +14,6 @@ import ru.javawebinar.topjava.util.DbPopulator;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 import static ru.javawebinar.topjava.UserTestData.*;
@@ -84,8 +83,7 @@ public class UserServiceTest {
 
     @Test
     public void testGetAll() throws Exception {
-        Collection<User> all = service.getAll();
-        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, USER), all);
+        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, USER), service.getAll());
     }
 
     @Test
