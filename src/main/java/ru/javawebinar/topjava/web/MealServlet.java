@@ -90,6 +90,6 @@ public class MealServlet extends HttpServlet {
 
     private int getIdFromRequest(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("id"));
-        return Integer.valueOf(paramId);
+        return Integer.parseInt(paramId);
     }
 }

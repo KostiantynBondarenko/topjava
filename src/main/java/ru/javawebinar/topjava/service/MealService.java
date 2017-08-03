@@ -9,7 +9,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 public interface MealService {
-    Meal save(Meal meal, int userId);
+    Meal create(Meal meal, int userId);
 
     void delete(int id, int userId) throws NotFoundException;
 
