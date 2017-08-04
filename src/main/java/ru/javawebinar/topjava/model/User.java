@@ -82,7 +82,7 @@ public class User extends NamedEntity {
 
         @Override
     public String toString() {
-        return String.format("User (getID=%s, name=%s, email='%s', caloriesPerDay=%s, enabled=%s, roles=%s)",
+            return String.format("User {id=%s, name=%s, email='%s', caloriesPerDay=%s, enabled=%s, roles=%s}",
                 id, name, email, caloriesPerDay, enabled, roles);
     }
 }

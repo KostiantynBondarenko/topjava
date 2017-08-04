@@ -3,7 +3,7 @@ package ru.javawebinar.topjava.model;
 public class BaseEntity {
     protected Integer id;
 
-    public BaseEntity() {
+    protected BaseEntity() {
     }
 
     protected BaseEntity(Integer id) {
@@ -24,7 +24,7 @@ public class BaseEntity {
 
     @Override
     public String toString() {
-        return String.format("Entity %s (%s)",
+        return String.format("Entity %s {%s}",
                 getClass().getName(), getId());
     }
 }
