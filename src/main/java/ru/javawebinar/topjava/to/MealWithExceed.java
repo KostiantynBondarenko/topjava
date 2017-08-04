@@ -3,15 +3,15 @@ package ru.javawebinar.topjava.to;
 import java.time.LocalDateTime;
 
 public class MealWithExceed {
-    private Integer id;
+    private final Integer id;
 
-    private LocalDateTime dateTime;
+    private final LocalDateTime dateTime;
 
-    private String description;
+    private final String description;
 
-    private int calories;
+    private final int calories;
 
-    private boolean exceed;
+    private final boolean exceed;
 
     public MealWithExceed(Integer id, LocalDateTime dateTime, String description, int calories, boolean exceed) {
         this.id = id;
@@ -43,7 +43,7 @@ public class MealWithExceed {
 
     @Override
     public String toString() {
-        return String.format("MealWithExceed (getID=%s, dateTime=%s, description='%s', calories=%s, exceed=%s)",
+        return String.format("MealWithExceed {id=%s, dateTime=%s, description='%s', calories=%s, exceed=%s}",
                 id, dateTime, description, calories, exceed);
     }
 }

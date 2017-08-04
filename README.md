@@ -1,3 +1,6 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d0ff6f5939024e548ca33edc85efebc2)](https://www.codacy.com/app/KostiantynBondarenko/topjava)
+[![Build Status](https://travis-ci.org/KostiantynBondarenko/topjava.svg?branch=master)](https://travis-ci.org/KostiantynBondarenko/topjava)
+
 Java Enterprise Online Project 
 ===============================
 Разработка полнофункционального Spring/JPA Enterprise приложения c авторизацией и правами доступа на основе ролей с использованием наиболее популярных инструментов и технологий Java: Maven, Spring MVC, Security, JPA(Hibernate), REST(Jackson), Bootstrap (css,js), datatables, jQuery + plugins, Java 8 Stream and Time API и хранением в базах данных Postgresql и HSQLDB.
