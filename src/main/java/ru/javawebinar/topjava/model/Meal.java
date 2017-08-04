@@ -59,7 +59,7 @@ public class Meal extends BaseEntity {
 
     @Override
     public String toString() {
-        return String.format("Meal (getID=%s, dateTime=%s, description='%s', calories=%s)",
+        return String.format("Meal {id=%s, dateTime=%s, description='%s', calories=%s}",
                 id, dateTime, description, calories);
     }
 }
