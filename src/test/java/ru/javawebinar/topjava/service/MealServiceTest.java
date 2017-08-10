@@ -1,13 +1,19 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.AfterClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.rules.Stopwatch;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
@@ -15,7 +21,9 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.concurrent.TimeUnit;
 
+import static org.slf4j.LoggerFactory.getLogger;
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
@@ -25,19 +33,46 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
         "classpath:spring/spring-app.xml",
         "classpath:spring/spring-db.xml"
 })
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MealServiceTest {
+    private static final Logger resultLog = getLogger("result");
+
+    private static StringBuilder results = new StringBuilder();
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Rule
+    // http://stackoverflow.com/questions/14892125/what-is-the-best-practice-to-determine-the-execution-time-of-the-bussiness-relev
+    public Stopwatch stopwatch = new Stopwatch() {
+        @Override
+        protected void finished(long nanos, Description description) {
+            String result = String.format("%-25s %7d", description.getMethodName(), TimeUnit.NANOSECONDS.toMillis(nanos));
+            results.append(result).append('\n');
+            resultLog.info(result + " ms\n");
+        }
+    };
 
     static {
         SLF4JBridgeHandler.install();
     }
 
+    @AfterClass
+    public static void printResult() {
+        resultLog.info("\n---------------------------------" +
+                "\nTest                 Duration, ms" +
+                "\n---------------------------------\n" +
+                results +
+                "---------------------------------\n");
+    }
+
+
     @Autowired
     private MealService service;
 
     @Test
-    public void testSave() throws Exception {
+    public void testCreate() throws Exception {
         Meal newMeal = getCreated();
         Meal created = service.create(newMeal, ADMIN_ID);
         newMeal.setId(created.getId());
@@ -50,8 +85,9 @@ public class MealServiceTest {
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_MEAL3, ADMIN_MEAL2), service.getAll(ADMIN_ID));
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void testDeleteNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
         service.delete(ADMIN_MEAL_ID, 1);
     }
 
@@ -61,8 +97,10 @@ public class MealServiceTest {
         MATCHER.assertEquals(USER_MEAL1, meal);
     }
 
-    @Test(expected = NotFoundException.class)
+
+    @Test
     public void testGetNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
         service.get(ADMIN_MEAL_ID, USER_ID);
     }
 
@@ -86,8 +124,10 @@ public class MealServiceTest {
         MATCHER.assertEquals(updated, service.get(ADMIN_MEAL_ID, ADMIN_ID));
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void testUpdateNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage("Not found entity with id=" + ADMIN_MEAL_ID);
         service.update(ADMIN_MEAL1, USER_ID);
     }
 }
