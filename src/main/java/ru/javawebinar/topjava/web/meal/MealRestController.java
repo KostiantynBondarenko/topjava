@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import static ru.javawebinar.topjava.util.DateTimeUtil.MAX_DATE;
+import static ru.javawebinar.topjava.util.DateTimeUtil.MIN_DATE;
 import static ru.javawebinar.topjava.util.ValidationUtil.assureIdConsistent;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
 
@@ -53,8 +55,8 @@ public class MealRestController {
 
         return MealsUtil.getFilteredWithExceeded(
                 service.getBetweenDates(
-                        startDate != null ? startDate : LocalDate.MIN,
-                        endDate != null ? endDate : LocalDate.MAX, userId),
+                        startDate != null ? startDate : MIN_DATE,
+                        endDate != null ? endDate : MAX_DATE, userId),
                 startTime != null ? startTime : LocalTime.MIN,
                 endTime != null ? endTime : LocalTime.MAX,
                 AuthorizedUser.getCaloriesPerDay()
