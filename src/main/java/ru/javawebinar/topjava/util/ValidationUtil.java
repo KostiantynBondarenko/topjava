@@ -1,6 +1,6 @@
 package ru.javawebinar.topjava.util;
 
-import ru.javawebinar.topjava.model.BaseEntity;
+import ru.javawebinar.topjava.model.AbstractBaseEntity;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 public class ValidationUtil {
@@ -9,11 +9,11 @@ public class ValidationUtil {
     }
 
     public static void checkNotFoundWithId(boolean found, int id) {
-        checkNotFound(found, "getID=" + id);
+        checkNotFound(found, "id=" + id);
     }
 
     public static <T> T checkNotFoundWithId(T object, int id) {
-        return checkNotFound(object, "getID=" + id);
+        return checkNotFound(object, "id=" + id);
     }
 
     public static <T> T checkNotFound(T object, String msg) {
@@ -27,17 +27,17 @@ public class ValidationUtil {
         }
     }
 
-    public static void checkNew(BaseEntity entity) {
+    public static void checkNew(AbstractBaseEntity entity) {
         if (!entity.isNew()) {
-            throw new IllegalArgumentException(entity + " must be new (getID=null)");
+            throw new IllegalArgumentException(entity + " must be new (id=null)");
         }
     }
 
-    public static void assureIdConsistent(BaseEntity entity, int id) {
+    public static void assureIdConsistent(AbstractBaseEntity entity, int id) {
         if (entity.isNew()) {
             entity.setId(id);
         } else if (entity.getId() != id) {
-            throw new IllegalArgumentException(entity + " must be with getID=" + id);
+            throw new IllegalArgumentException(entity + " must be with id=" + id);
         }
     }
 }
