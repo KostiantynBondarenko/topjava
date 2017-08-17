@@ -54,4 +54,9 @@ public class MealServiceImpl implements MealService {
     public List<Meal> getAll(int userId) {
         return repository.getAll(userId);
     }
+
+    @Override
+    public Meal getWithUser(int id, int userId) {
+        return checkNotFoundWithId(repository.getWithUser(id, userId), id);
+    }
 }
