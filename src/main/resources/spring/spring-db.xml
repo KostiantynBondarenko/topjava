@@ -13,6 +13,14 @@
 
     <context:component-scan base-package="ru.javawebinar.**.repository.datajpa"/>
     <jpa:repositories base-package="ru.javawebinar.**.repository.datajpa"/>
+    <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
+
+    <bean id="dataSource"
+          class="org.apache.tomcat.jdbc.pool.DataSource"
+          p:driverClassName="org.postgresql.Driver"
+          p:url="${database.url}"
+          p:username="${database.username}"
+          p:password="${database.password}"/>
 
     <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
         <jdbc:script location="classpath:db/initDB.sql"/>
@@ -25,8 +33,14 @@
 
         <property name="jpaPropertyMap">
             <map>
-                <entry key="hibernate.format_sql" value="${hibernate.format_sql}"/>
-                <entry key="hibernate.use_sql_comments" value="${hibernate.use_sql_comments}"/>
+                <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="${hibernate.format_sql}"/>
+                <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}"
+                       value="${hibernate.use_sql_comments}"/>
+
+                <entry key="#{T(org.hibernate.cfg.AvailableSettings).CACHE_REGION_FACTORY}" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory"/>
+                <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="true"/>
+                <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> <!--default-->
+                <entry key="#{T(org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory).NET_SF_EHCACHE_CONFIGURATION_RESOURCE_NAME}" value="cache/ehcache.xml"/>
             </map>
         </property>
 
@@ -41,15 +55,7 @@
 
     <!-- Transaction manager for a single JPA EntityManagerFactory -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
-    p:entityManagerFactory-ref="entityManagerFactory"/>
+        p:entityManagerFactory-ref="entityManagerFactory"/>
 
-    <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
-
-    <bean id="dataSource"
-          class="org.apache.tomcat.jdbc.pool.DataSource"
-          p:driverClassName="org.postgresql.Driver"
-          p:url="${database.url}"
-          p:username="${database.username}"
-          p:password="${database.password}"/>
-
+    <bean class="ru.javawebinar.topjava.repository.JpaUtil"/>
 </beans>
