@@ -16,13 +16,13 @@ public class DataJpaMealServiceTest extends AbstractMealServiceTest {
 
     @Test
     public void testGetWithUser() throws Exception {
-        Meal userMeal = service.getWithUser(USER_MEAL_ID, USER_ID);
+        Meal userMeal = mealService.getWithUser(USER_MEAL_ID, USER_ID);
         MATCHER.assertEquals(USER_MEAL1, userMeal);
         UserTestData.MATCHER.assertEquals(UserTestData.USER, userMeal.getUser());
     }
 
     @Test(expected = NotFoundException.class)
     public void testGetWithUserNotFound() throws Exception {
-        service.getWithUser(ADMIN_MEAL_ID, USER_ID);
+        mealService.getWithUser(ADMIN_MEAL_ID, USER_ID);
     }
 }

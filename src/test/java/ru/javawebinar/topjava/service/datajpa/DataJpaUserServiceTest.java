@@ -16,13 +16,13 @@ import static ru.javawebinar.topjava.UserTestData.MATCHER;
 public class DataJpaUserServiceTest extends AbstractUserServiceTest {
     @Test
     public void testGetWithMeals() throws Exception {
-        User user = service.getWithMeals(ADMIN_ID);
+        User user = userService.getWithMeals(ADMIN_ID);
         MATCHER.assertEquals(ADMIN, user);
         MealTestData.MATCHER.assertCollectionEquals(MealTestData.ADMIN_MEALS, user.getMeals());
     }
 
     @Test(expected = NotFoundException.class)
     public void testGetWithMealsNotFound() throws Exception {
-        service.getWithMeals(1);
+        userService.getWithMeals(1);
     }
 }

@@ -13,7 +13,7 @@ public class UserTestData {
     public static final int USER_ID = START_SEQ + 1;
 
     public static final User ADMIN = new User("Admin", "admin@gmail.com", "admin", Role.ROLE_ADMIN);
-    public static final User USER = new User("User", "user@gmail.ru", "password", Role.ROLE_USER);
+    public static final User USER = new User("User", "user@gmail.com", "password", Role.ROLE_USER);
 
     static {
         UserTestData.ADMIN.setId(ADMIN_ID);

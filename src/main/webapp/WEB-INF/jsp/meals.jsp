@@ -3,12 +3,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
-    <title>Meal list</title>
+    <title>Calories management</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h3><a href="index.html">Home</a></h3>
-    <h2>Meals</h2>
+    <h3>Meals</h3>
     <form method="post" action="meals?action=filter">
         <dl>
             <dt>From Date:</dt>
