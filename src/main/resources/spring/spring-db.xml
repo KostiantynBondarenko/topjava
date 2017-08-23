@@ -77,6 +77,9 @@
                     <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> <!--default-->
                     <entry key="#{T(org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory).NET_SF_EHCACHE_CONFIGURATION_RESOURCE_NAME}" value="cache/ehcache.xml"/>
 
+
+                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).ORDER_INSERTS}" value="true"/>
+                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).ORDER_UPDATES}" value="true"/>
                     <!--batch and fetch size-->
                     <entry key="#{T(org.hibernate.cfg.AvailableSettings).DEFAULT_BATCH_FETCH_SIZE}" value="50"/>
 <!--
