@@ -26,6 +26,7 @@ import static ru.javawebinar.topjava.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
 @Entity
 //@NamedEntityGraph(name = User.GRAPH_WITH_MEALS, attributeNodes = {@NamedAttributeNode("meals")})
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
+@BatchSize(size = 200)
 public class User extends AbstractNamedEntity {
 
 //    public static final String GRAPH_WITH_MEALS = "User.withMeals";
