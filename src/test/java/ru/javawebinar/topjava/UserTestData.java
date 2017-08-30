@@ -12,7 +12,7 @@ public class UserTestData {
     public static final int ADMIN_ID = START_SEQ;
     public static final int USER_ID = START_SEQ + 1;
 
-    public static final User ADMIN = new User("Admin", "admin@gmail.com", "admin", Role.ROLE_ADMIN);
+    public static final User ADMIN = new User("Admin", "admin@gmail.com", "admin", Role.ROLE_ADMIN, Role.ROLE_USER);
     public static final User USER = new User("User", "user@gmail.com", "password", Role.ROLE_USER);
 
     static {
@@ -28,7 +28,7 @@ public class UserTestData {
                             && Objects.equals(expected.getEmail(), actual.getEmail())
                             && Objects.equals(expected.getCaloriesPerDay(), actual.getCaloriesPerDay())
                             && Objects.equals(expected.isEnabled(), actual.isEnabled())
-//                            && Objects.equals(expected.getRoles(), actual.getRoles())
+                            && Objects.equals(expected.getRoles(), actual.getRoles())
                     )
     );
 

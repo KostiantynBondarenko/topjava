@@ -1,5 +1,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d0ff6f5939024e548ca33edc85efebc2)](https://www.codacy.com/app/KostiantynBondarenko/topjava)
 [![Build Status](https://travis-ci.org/KostiantynBondarenko/topjava.svg?branch=master)](https://travis-ci.org/KostiantynBondarenko/topjava)
+[![Dependency Status](https://www.versioneye.com/user/projects/59a6515f6725bd0037d983ee/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59a6515f6725bd0037d983ee)
 
 Java Enterprise Online Project 
 ===============================
