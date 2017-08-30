@@ -24,11 +24,6 @@ public class InMemoryAdminRestControllerTest {
         controller = appCtx.getBean(AdminRestController.class);
     }
 
-    @AfterClass
-    public static void afterClass() {
-        appCtx.close();
-    }
-
     @Before
     public void setUp() throws Exception {
         UserRepository repository = appCtx.getBean(UserRepository.class);

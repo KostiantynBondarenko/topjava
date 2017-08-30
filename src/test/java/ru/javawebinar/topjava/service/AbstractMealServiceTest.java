@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.Assume;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.javawebinar.topjava.model.Meal;
@@ -9,7 +10,6 @@ import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
-import java.util.Collection;
 
 import static java.time.LocalDateTime.of;
 import static ru.javawebinar.topjava.MealTestData.*;
@@ -26,13 +26,13 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
         Meal newMeal = getCreated();
         Meal created = mealService.create(newMeal, ADMIN_ID);
         newMeal.setId(created.getId());
-        MATCHER.assertCollectionEquals(Arrays.asList(newMeal, ADMIN_MEAL3, ADMIN_MEAL2, ADMIN_MEAL1), mealService.getAll(ADMIN_ID));
+        MATCHER.assertListEquals(Arrays.asList(newMeal, ADMIN_MEAL3, ADMIN_MEAL2, ADMIN_MEAL1), mealService.getAll(ADMIN_ID));
     }
 
     @Test
     public void testDelete() throws Exception {
         mealService.delete(ADMIN_MEAL_ID, ADMIN_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_MEAL3, ADMIN_MEAL2), mealService.getAll(ADMIN_ID));
+        MATCHER.assertListEquals(Arrays.asList(ADMIN_MEAL3, ADMIN_MEAL2), mealService.getAll(ADMIN_ID));
     }
 
     @Test
@@ -56,15 +56,15 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Test
     public void testGetBetween() throws Exception {
-        Collection<Meal> all = mealService.getBetweenDates(
-                LocalDate.of(2017, Month.AUGUST, 20),
-                LocalDate.of(2017, Month.AUGUST, 31), ADMIN_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_MEAL3, ADMIN_MEAL2), all);
+        MATCHER.assertListEquals(Arrays.asList(ADMIN_MEAL3, ADMIN_MEAL2),
+                mealService.getBetweenDates(
+                        LocalDate.of(2017, Month.AUGUST, 20),
+                        LocalDate.of(2017, Month.AUGUST, 31), ADMIN_ID));
     }
 
     @Test
     public void getAll() throws Exception {
-        MATCHER.assertCollectionEquals(USER_MEALS, mealService.getAll(USER_ID));
+        MATCHER.assertListEquals(USER_MEALS, mealService.getAll(USER_ID));
     }
 
     @Test
@@ -83,6 +83,7 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Test
     public void testValidation() throws Exception {
+        Assume.assumeTrue(isJpaBased());
         validateRootCause(() -> mealService.create(new Meal(null, of(2017, Month.AUGUST, 1, 18, 0), "  ", 300), ADMIN_ID), ConstraintViolationException.class);
         validateRootCause(() -> mealService.create(new Meal(null, null, "Description", 300), ADMIN_ID), ConstraintViolationException.class);
         validateRootCause(() -> mealService.create(new Meal(null, of(2017, Month.AUGUST, 1, 18, 0), "Description", 9), ADMIN_ID), ConstraintViolationException.class);
