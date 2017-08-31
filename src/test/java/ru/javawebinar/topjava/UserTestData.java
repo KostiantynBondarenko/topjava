@@ -20,7 +20,7 @@ public class UserTestData {
         UserTestData.USER.setId(USER_ID);
     }
 
-    public static final BeanMatcher<User> MATCHER = new BeanMatcher<>(
+    public static final BeanMatcher<User> MATCHER = BeanMatcher.of(User.class,
             (expected, actual) -> expected == actual ||
                     (Objects.equals(expected.getPassword(), actual.getPassword())
                             && Objects.equals(expected.getId(), actual.getId())
@@ -31,5 +31,4 @@ public class UserTestData {
                             && Objects.equals(expected.getRoles(), actual.getRoles())
                     )
     );
-
 }
