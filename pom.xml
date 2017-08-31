@@ -237,6 +237,12 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson-json.version}</version>
         </dependency>
+        <!--Ignore serialize lazy field -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate5</artifactId>
+            <version>${jackson-json.version}</version>
+        </dependency>
 
         <!--Test-->
         <dependency>
