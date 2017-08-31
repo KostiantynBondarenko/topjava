@@ -19,6 +19,7 @@
         <tomcat.version>8.5.20</tomcat.version>
         <spring.version>4.3.10.RELEASE</spring.version>
         <spring-data-jpa.version>1.11.6.RELEASE</spring-data-jpa.version>
+        <jackson-json.version>2.9.0</jackson-json.version>
 
         <!-- Logging -->
         <logback.version>1.2.3</logback.version>
@@ -29,6 +30,7 @@
 
         <!--    Tests  -->
         <junit.version>4.12</junit.version>
+        <hamcrest.version>1.3</hamcrest.version>
 
         <!-- Hibernate -->
         <hibernate.version>5.2.10.Final</hibernate.version>
@@ -48,6 +50,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.6.2</version>
+
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -59,6 +62,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.20</version>
+
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
@@ -69,13 +73,16 @@
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven2-plugin</artifactId>
                 <version>1.6.4</version>
+
                 <configuration>
                     <container>
                         <containerId>tomcat8x</containerId>
+
                         <systemProperties>
                             <file.encoding>UTF-8</file.encoding>
                             <spring.profiles.active>tomcat,datajpa</spring.profiles.active>
                         </systemProperties>
+
                         <dependencies>
                             <dependency>
                                 <groupId>org.postgresql</groupId>
@@ -83,6 +90,7 @@
                             </dependency>
                         </dependencies>
                     </container>
+
                     <configuration>
                         <configfiles>
                             <configfile>
@@ -92,6 +100,7 @@
                             </configfile>
                         </configfiles>
                     </configuration>
+
                     <deployables>
                         <deployable>
                             <groupId>ru.javawebinar</groupId>
@@ -213,11 +222,45 @@
             <version>1.2</version>
         </dependency>
 
+        <!--JSON-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-json.version}</version>
+        </dependency>
+
+        <!--Ignore serialize lazy field -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate5</artifactId>
+            <version>${jackson-json.version}</version>
+        </dependency>
+
+        <!--Handle Java 8 dates with Jackson-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson-json.version}</version>
+        </dependency>
+
         <!--Test-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hamcrest-core</artifactId>
+                    <groupId>org.hamcrest</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>${hamcrest.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -231,6 +274,7 @@
     <profiles>
         <profile>
             <id>hsqldb</id>
+
             <dependencies>
                 <dependency>
                     <groupId>org.hsqldb</groupId>
@@ -239,14 +283,17 @@
                 </dependency>
             </dependencies>
         </profile>
+
         <profile>
             <id>postgres</id>
+
             <dependencies>
                 <dependency>
                     <groupId>org.postgresql</groupId>
                     <artifactId>postgresql</artifactId>
                     <version>${postgresql.version}</version>
                 </dependency>
+
                 <dependency>
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-jdbc</artifactId>
@@ -254,6 +301,7 @@
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
+
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
