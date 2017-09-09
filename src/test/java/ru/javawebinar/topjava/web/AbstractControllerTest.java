@@ -33,7 +33,7 @@ public abstract class AbstractControllerTest {
         CHARACTER_ENCODING_FILTER.setForceEncoding(true);
     }
 
-    @Autowired
+    @Autowired()
     private DataJpaUtil dataJpaUtil;
 
     protected MockMvc mockMvc;
