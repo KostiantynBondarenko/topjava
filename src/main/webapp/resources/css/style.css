@@ -1,18 +1,45 @@
+/*dl {*/
+    /*background: none repeat scroll 0 0 #FAFAFA;*/
+    /*margin: 8px 0;*/
+    /*padding: 0;*/
+/*}*/
+
+/*dt {*/
+    /*display: inline-block;*/
+    /*width: 170px;*/
+/*}*/
+
+/*dd {*/
+    /*display: inline-block;*/
+    /*margin-left: 8px;*/
+    /*vertical-align: top;*/
+/*}*/
+
 dl {
+    padding-top: 1em;
+    padding-left: 1em;
+    margin-bottom:2em;
+}
+
+dl dt {
     background: none repeat scroll 0 0 #FAFAFA;
-    margin: 8px 0;
-    padding: 0;
+    float:left;
+    font-weight:bold;
+    margin-right:0;
+    padding-top: 0.3em;
+    width:9em;
+    vertical-align: middle;
 }
 
-dt {
-    display: inline-block;
-    width: 170px;
+dl dd {
+    margin:2px 0;
+    padding-top: 0.3em;
+    vertical-align: middle;
 }
 
-dd {
-    display: inline-block;
-    margin-left: 8px;
-    vertical-align: top;
+.input_filter {
+    width: 10em;
+    height: 1.5em;
 }
 
 .normal {

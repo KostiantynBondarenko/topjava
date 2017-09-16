@@ -13,15 +13,13 @@
     <input type="hidden" name="id" value="${meal.id}">
     <dl>
         <dt><spring:message code="meal.dateTime"/>:</dt>
-        <dd><input type="datetime-local" value="${meal.dateTime}" name="dateTime"></dd>
-    </dl>
-    <dl>
+        <dd><input type="datetime-local" value="${meal.dateTime}" name="dateTime" class="input_filter"></dd>
+
         <dt><spring:message code="meal.description"/>:</dt>
-        <dd><input type="text" placeholder="Enter description.." value="${meal.description}" size=25 maxlength="25" name="description"></dd>
-    </dl>
-    <dl>
+        <dd><input type="text" placeholder="Enter description.." value="${meal.description}" size=25 maxlength="25" name="description" class="input_filter"></dd>
+
         <dt><spring:message code="meal.calories"/>:</dt>
-        <dd><input type="number" value="${meal.calories}" name="calories"></dd>
+        <dd><input type="number" value="${meal.calories}" name="calories" class="input_filter"></dd>
     </dl>
     <button type="submit"><spring:message code="common.save"/></button>
     <button onclick="window.history.back()" type="button"><spring:message code="common.cancel"/></button>

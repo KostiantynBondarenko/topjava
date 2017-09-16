@@ -10,19 +10,16 @@
 <form method="post" action="meals/filter">
     <dl>
         <dt><spring:message code="meal.startDate"/>:</dt>
-        <dd><input type="date" id="startDate" name="startDate" value="${param.startDate}"></dd>
-    </dl>
-    <dl>
+        <dd><input type="date" id="startDate" name="startDate" value="${param.startDate}" class="input_filter"></dd>
+
         <dt><spring:message code="meal.endDate"/>:</dt>
-        <dd><input type="date" id="endDate" name="endDate" value="${param.endDate}"></dd>
-    </dl>
-    <dl>
+        <dd><input type="date" id="endDate" name="endDate" value="${param.endDate}" class="input_filter"></dd>
+
         <dt><spring:message code="meal.startTime"/>:</dt>
-        <dd><input type="time" id="startTime" name="startTime" value="${param.startTime}"></dd>
-    </dl>
-    <dl>
+        <dd><input type="time" id="startTime" name="startTime" value="${param.startTime}" class="input_filter"></dd>
+
         <dt><spring:message code="meal.endTime"/>:</dt>
-        <dd><input type="time" id="endTime" name="endTime" value="${param.endTime}"></dd>
+        <dd><input type="time" id="endTime" name="endTime" value="${param.endTime}" class="input_filter"></dd>
     </dl>
     <button type="submit"><spring:message code="meal.filter"/></button>
     <button type="submit" onclick="myFunction()"><spring:message code="meal.reset"/></button>
